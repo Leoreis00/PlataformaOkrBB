@@ -1,0 +1,107 @@
+/* Container principal */
+.topbar-container {
+  background-color: #FCFB30;
+  height: 60px;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: margin-left 0.3s ease;
+  margin-left: 80px; /* Largura do menu recolhido */
+  width: calc(100% - 80px);
+}
+
+/* Quando o menu está expandido */
+.topbar-container.menu-expanded {
+  margin-left: 220px; /* Largura do menu expandido */
+  width: calc(100% - 220px);
+}
+
+.logo-container {
+  height: 100%;
+  min-width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  transition: padding-left 0.3s ease;
+  padding-left: 20px;
+}
+
+/* Ajuste da logo quando menu expandido */
+.topbar-container.menu-expanded .logo-container {
+  padding-left: 10px;
+}
+
+.logo-banco {
+  height: 32px;
+  width: auto;
+  max-width: 180px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Restante do CSS permanece igual */
+.user-area {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(70, 94, 255, 0.1);
+  padding: 6px 15px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.user-badge:hover {
+  background-color: rgba(70, 94, 255, 0.2);
+}
+
+.user-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  color: #465EFF;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.user-role {
+  font-family: 'Montserrat', sans-serif;
+  color: #465EFF;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .topbar-container {
+    padding: 0 1rem;
+  }
+  
+  .topbar-container,
+  .topbar-container.menu-expanded {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .logo-container {
+    padding-left: 10px;
+  }
+}

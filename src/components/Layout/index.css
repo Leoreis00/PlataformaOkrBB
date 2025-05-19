@@ -1,0 +1,117 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+a {
+  text-decoration: none;
+}
+input::placeholder {
+  font-family: 'Montserrat';
+}
+
+.Navbar {
+  height: 100vh;
+  width: 50px;
+  background-color: #465EFF;
+}
+.header-color{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 54px;
+  background-color: #FCFB30;
+}
+.header-logo{
+  width: 50px;
+  position: absolute;
+  left: 1%;
+}
+.Logobanco {
+  width: 32px;
+  height: 24px;
+}
+
+.tela-centro{
+  min-height: calc(100vh - 54px);
+  background-color: #F0F2F4;
+}
+.centro-login{
+  width: 308px;
+  height: 282px;
+  padding: 17px;
+  background-color: #7D8899;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.logo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.metodo-login{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 15px;
+}
+.Entre{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  color: #F0F2F4;
+}
+.administrador{
+  color: #F0F2F4;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #465EFF;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+
+.Campo-usuario{
+  max-width: 300px;
+
+}
+.input-container {
+  position: relative;
+  margin-top: 15px;
+}
+
+.input-container i {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #888;
+  font-size: 16px;
+}
+
+.input-container input {
+  width: 100%;
+  padding: 10px 10px 10px 35px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  font-size: 16px;
+}
+
+
+.button-entrar{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+.oBotao{
+  width: 200px;
+  height: 30px;
+  color: #F0F2F4;
+  font-family: 'Montserrat';
+  font-weight: 700;
+  background-color: #465EFF;
+  border: 0;
+  border-radius: 5px;
+}
