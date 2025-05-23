@@ -1,0 +1,91 @@
+/* Garanta que Montserrat está carregada via link no HTML:
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+*/
+
+.container {
+  font-family: 'Montserrat', sans-serif;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+  font-size: 0.9rem;
+}
+
+.headerRow {
+  background-color: #ffffff;
+  color: #2563EB;
+  border-bottom: 3px solid #2563EB; /* divisão nítida */
+}
+
+.headerRow th {
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #2563EB;
+  /* Removido font-family daqui porque já está no container */
+}
+
+.row {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12); /* sombra mais nítida */
+}
+
+.row td {
+  padding: 14px 12px;
+  vertical-align: middle;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.status {
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: capitalize;
+  color: #374151;
+}
+
+.progressBarBackground {
+  background-color: #e5e7eb;
+  border-radius: 999px;
+  height: 16px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.progressBlue {
+  background-color: #3b82f6;
+}
+
+.progressGreen {
+  background-color: #22c55e;
+}
+
+.progressRed {
+  background-color: #ef4444;
+}
+
+.progressText {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: white;
+  user-select: none;
+  pointer-events: none;
+}

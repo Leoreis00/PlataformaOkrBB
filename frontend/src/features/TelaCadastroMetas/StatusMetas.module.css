@@ -1,0 +1,30 @@
+.statusContainer {
+  display: flex;
+  flex-direction: column; 
+  gap: 16px;
+}
+
+
+.titulo{
+  color: #4e6ef2;
+  margin-top: -35px;
+}
+
+.inProgress, .completed {
+  flex: 1;
+  padding: 16px;
+  border-radius: 12px;
+  text-align: center;
+  color: #4e6ef2;
+  background: #ffffff;
+  border: 1px solid #ccc;
+}
+
+.inProgress{
+  margin-top: 20px;
+}
+
+.completed {
+  background: #4e6ef2;
+  color: white;
+}

@@ -1,0 +1,25 @@
+.container {
+  margin-top: 16px;
+}
+
+.container h4{
+  color: #4e6ef2;
+}
+
+.card {
+  border: 1px solid #ccc;
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 8px;
+  background: white;
+}
+
+.link {
+  color: #4e6ef2;
+  cursor: pointer;
+}
+
+.highlight {
+  color: #3c52fc;
+  font-weight: bold;
+}

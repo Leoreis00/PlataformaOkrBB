@@ -1,0 +1,41 @@
+.formContainer {
+  padding: 20px;
+  border-radius: 8px;
+  background: white;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+}
+
+.formContainer form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.formContainer span {
+  color: red;
+}
+
+.formContainer h2 {
+  color: #4e6ef2;
+}
+
+.formContainer input,
+.formContainer select,
+.formContainer textarea {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  resize: none;
+}
+
+.formContainer button {
+  margin-top: 12px;
+  background: #4e6ef2;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

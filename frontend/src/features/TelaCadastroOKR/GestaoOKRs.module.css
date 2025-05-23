@@ -1,0 +1,173 @@
+.pageWrapper {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  padding: 24px;
+  background-color: #f2f4f7;
+  max-width: 1000px;
+  margin: 0 auto;
+  color: #333;
+}
+
+.pageTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #003399; /* Azul BB */
+  margin-bottom: 28px;
+  text-align: left;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-family: 'Segoe UI Semibold', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.cardsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.08);
+  padding: 22px 26px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgb(0 0 0 / 0.15);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.cardNumber {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #004b99; /* tom um pouco mais escuro */
+  margin-right: 14px;
+  min-width: 32px;
+  text-align: center;
+  font-family: 'Segoe UI Semibold', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.cardTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #002366;
+  margin: 0;
+  flex: 1;
+  line-height: 1.2;
+  font-family: 'Segoe UI Semibold', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card p {
+  font-size: 0.92rem;
+  margin: 6px 0;
+  color: #555;
+  line-height: 1.4;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.status {
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  color: white;
+  font-size: 0.85rem;
+  display: inline-block;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  user-select: none;
+  font-family: 'Segoe UI Semibold', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Status colors */
+.status.planejamento {
+  background-color: #f5a623; /* amarelo BB, mais suave e moderno */
+  box-shadow: 0 0 8px #f5a623aa;
+}
+
+.status.emandamento {
+  background-color: #0055cc; /* azul BB, mais vivo */
+  box-shadow: 0 0 8px #0055ccaa;
+}
+
+.status.concluido {
+  background-color: #009933; /* verde mais fresco */
+  box-shadow: 0 0 8px #009933aa;
+}
+
+.cardActions {
+  margin-top: auto;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.actionButton {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.2s ease;
+  color: white;
+  min-width: 70px;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 0.12);
+  font-family: 'Segoe UI Semibold', Tahoma, Geneva, Verdana, sans-serif;
+  user-select: none;
+}
+
+.actionButton:focus {
+  outline: 2px solid #003399;
+  outline-offset: 2px;
+}
+
+.editButton {
+  background-color: #003399;
+  box-shadow: 0 4px 14px #003399aa;
+}
+
+.editButton:hover {
+  background-color: #001f66;
+  box-shadow: 0 6px 18px #001f66cc;
+}
+
+.deleteButton {
+  background-color: #cc0000;
+  box-shadow: 0 4px 14px #cc0000aa;
+}
+
+.deleteButton:hover {
+  background-color: #800000;
+  box-shadow: 0 6px 18px #800000cc;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .pageWrapper {
+    padding: 16px;
+  }
+
+  .cardsContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .cardActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .actionButton {
+    width: 100%;
+    min-width: unset;
+  }
+}
