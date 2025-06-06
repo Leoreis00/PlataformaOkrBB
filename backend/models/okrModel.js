@@ -27,7 +27,7 @@ exports.createOKR = (okrData, callback) => {
       status,
       descricao,
       progresso,
-      impacto_financeo,
+      impacto_financero,
       trimestre,
       peso_kpi
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
