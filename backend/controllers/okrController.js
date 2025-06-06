@@ -170,3 +170,52 @@ exports.getGraficoTrimestre = (req, res) => {
     res.status(200).json(resultadoFinal);
   });
 };
+
+// Gráfico radar por departamento
+exports.getRadarDesempenho = (req, res) => {
+  const query = `
+    SELECT 
+      area_responsavel AS subject,
+      tipo,
+      SUM(progresso) AS total_progresso
+    FROM okrs
+    WHERE periodo = '2025'
+    GROUP BY area_responsavel, tipo
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error('Erro ao buscar dados do radar:', err);
+      return res.status(500).json({ error: 'Erro ao buscar dados do radar' });
+    }
+
+    const dadosPorArea = {};
+
+    results.forEach(({ subject, tipo, total_progresso }) => {
+      if (!dadosPorArea[subject]) {
+        dadosPorArea[subject] = { subject, Esforco: 0, Resultado: 0 };
+      }
+
+      if (tipo === 'Resultado') {
+        dadosPorArea[subject].Resultado = parseFloat(total_progresso);
+      } else if (tipo === 'Esforço') {
+        dadosPorArea[subject].Esforco = parseFloat(total_progresso);
+      }
+    });
+
+    const resultadoFinal = Object.values(dadosPorArea);
+
+    res.status(200).json(resultadoFinal);
+  });
+};
+// Buscar todas as OKRs com filtros
+exports.getOKRs = (req, res) => {
+  const { trimestre, departamento } = req.query; // Pega os parâmetros da query string
+
+  okrModel.getAllOKRs(trimestre, departamento, (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: "Erro ao buscar OKRs" });
+    }
+    res.status(200).json(results);
+  });
+};

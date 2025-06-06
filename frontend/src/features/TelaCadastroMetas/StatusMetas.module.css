@@ -1,30 +1,54 @@
 .statusContainer {
-  display: flex;
-  flex-direction: column; 
-  gap: 16px;
-}
-
-
-.titulo{
-  color: #4e6ef2;
-  margin-top: -35px;
-}
-
-.inProgress, .completed {
-  flex: 1;
-  padding: 16px;
+  padding: 20px;
   border-radius: 12px;
-  text-align: center;
-  color: #4e6ef2;
-  background: #ffffff;
+  background: white;
   border: 1px solid #ccc;
+  font-family: 'Montserrat', sans-serif;
+
+  margin-top: 0;
 }
 
-.inProgress{
-  margin-top: 20px;
+
+.statusTitle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  color: #2563EB;
+  margin-bottom: 20px;
+}
+
+.inProgress,
+.completed {
+  padding: 10px 2px;
+  border-radius: 12px;
+  background: #f9f9f9;
+  border: 1px solid #ccc;
+  margin-bottom: 12px;
+  color: #2563EB;
+  text-align: center;
+  font-size: 14px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1px;
+
+  min-height: 80px;
+}
+
+.inProgress p,
+.inProgress h1,
+.inProgress span,
+.completed p,
+.completed h1,
+.completed span {
+  margin: 0;
+  padding: 0;
 }
 
 .completed {
-  background: #4e6ef2;
+  background: #2563EB;
   color: white;
 }

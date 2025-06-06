@@ -1,6 +1,6 @@
 
 
-require('dotenv').config();            // Carrega variáveis de ambiente do .env
+require('dotenv').config();           
 const express = require('express');
 const cors = require('cors');
 
@@ -10,8 +10,8 @@ const metaRoutes = require('./routes/metaRoutes');
 const app = express();
 
 // Middlewares
-app.use(cors());                       // Permite requisições de outros domínios (ex: frontend React)
-app.use(express.json());               // Permite receber JSON no body das requisições
+app.use(cors());                       
+app.use(express.json());               
 
 // Rotas
 app.use('/api/okrs', okrRoutes);

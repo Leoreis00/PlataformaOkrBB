@@ -1,12 +1,12 @@
 .container {
   display: flex;
-  gap: 20px;
+  gap: 16px;
 }
 
 .statusBloco,
 .statusBlocoConcluidas {
   flex: 1;
-  padding: 20px;
+  padding: 16px;
   border-radius: 8px;
   text-align: center;
 }
@@ -24,15 +24,23 @@
 }
 
 
+.statusBloco h3,
+.statusBloco p,
+.statusBlocoConcluidas h3,
+.statusBlocoConcluidas p {
+  margin: 0;
+  font-size: 14px; 
+}
+
 .statusBlocoConcluidas h3 {
   color: white;
 }
 
 .numero {
   display: block;
-  font-size: 36px;
+  font-size: 28px;
   font-weight: 700;
-  margin: 10px 0;
+  margin: 4px 0;
 }
 
 .tituloComIcone {
@@ -41,9 +49,15 @@
   gap: 0.5rem;
   margin-bottom: 1rem;
   color: #2563eb;
+  font-size: 14px;
 }
-
+.tituloComIcone h3 {
+  font-size: 14px;
+  margin: 0; 
+}
 .iconeEstrela {
   color: gold;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+  position: relative;
+  top: -1px;
 }

@@ -1,0 +1,160 @@
+
+:root {
+  --cor-primaria: #2563EB;
+  --cor-primaria-hover: #1D4ED8;
+  --cor-primaria-fundo: #EFF6FF; /* Azul claro para fundos e seleções */
+  --cor-primaria-texto-cabecalho: #1E40AF; /* Azul escuro para texto sobre fundo azul claro */
+  
+  --fonte-principal: 'Montserrat', sans-serif;
+  --tamanho-fonte-base: 14px;
+  
+  --cor-sucesso: #16A34A;
+  --cor-alerta: #F59E0B;
+  --cor-perigo: #DC2626;
+  
+  --cor-texto-principal: #1E293B;
+  --cor-texto-secundario: #64748B;
+  --cor-borda: #E2E8F0;
+  --cor-fundo: #F8FAFC;
+  --cor-fundo-zebra: #F9FAFB; /* Cor para o efeito zebra, quase branca */
+}
+
+
+.container {
+  font-family: var(--fonte-principal);
+  font-size: var(--tamanho-fonte-base);
+  color: var(--cor-texto-principal);
+  background-color: var(--cor-fundo);
+  padding: 16px 28px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--cor-borda);
+  padding-bottom: 12px;
+}
+
+.titulo {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--cor-primaria);
+}
+
+.acoes { display: flex; align-items: center; gap: 12px; }
+
+
+.dropdownWrapper { position: relative; }
+.dropdownButton {
+  background: white; color: var(--cor-texto-secundario); border: 1px solid var(--cor-borda);
+  padding: 8px 16px; border-radius: 6px; cursor: pointer; display: flex;
+  align-items: center; gap: 8px; font-weight: 500; transition: all 0.2s ease;
+}
+.dropdownButton:hover { border-color: var(--cor-primaria); color: var(--cor-primaria); }
+.dropdownList {
+  position: absolute; top: 110%; right: 0; width: 200px;
+  background: white; border: 1px solid var(--cor-borda);
+  border-radius: 6px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  z-index: 10; list-style: none; padding: 6px; margin: 0;
+}
+.dropdownItem {
+  padding: 10px 12px; cursor: pointer; border-radius: 4px; font-size: 0.9rem;
+  transition: background-color 0.1s ease;
+}
+.dropdownItem:hover { background-color: var(--cor-primaria-fundo); }
+
+.botaoAcaoPrincipal {
+  background-color: var(--cor-primaria); color: white; padding: 9px 16px;
+  border-radius: 6px; border: none; display: flex; align-items: center;
+  gap: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+.botaoAcaoPrincipal:hover { background-color: var(--cor-primaria-hover); }
+
+
+.listaContainer {
+  background-color: white; border: 1px solid var(--cor-borda);
+  border-radius: 8px; overflow: hidden;
+}
+
+.listaHeader {
+  display: grid;
+  grid-template-columns: 40px 3fr 1fr 1fr 1.5fr 60px;
+  align-items: center;
+  padding: 7px 24px;
+  background-color: var(--cor-primaria-fundo);
+  border-bottom: 1px solid var(--cor-borda);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cor-primaria-texto-cabecalho);
+}
+.statusHeader { text-align: left; }
+
+.itemRelatorio {
+  display: grid;
+  grid-template-columns: 40px 3fr 1fr 1fr 1.5fr 60px;
+  align-items: center;
+  padding: 6px 24px;
+  transition: background-color 0.15s ease;
+  cursor: pointer;
+  line-height: 1.2;
+}
+.itemRelatorio:last-child { border-bottom: none; }
+
+.itemRelatorio:nth-child(even) {
+  background-color: var(--cor-fundo-zebra);
+}
+
+.itemRelatorio:hover {
+  background-color: #F0F1F2;
+}
+
+.itemSelecionado {
+  background-color: var(--cor-primaria-fundo) !important;
+}
+.itemSelecionado .itemTitle {
+  color: var(--cor-primaria-texto-cabecalho);
+  font-weight: 600;
+}
+
+.itemRelatorio:hover .botaoDownloadIcone { opacity: 1; }
+.itemTitle { font-weight: 500; transition: color 0.15s ease; } /* ✨ A regra de font-size foi removida para herdar 14px */
+.itemMeta { color: var(--cor-texto-secundario); font-size: 0.85rem; }
+
+
+.itemStatus {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.statusDot { width: 8px; height: 8px; border-radius: 50%; }
+.statusConcluido { background-color: var(--cor-sucesso); color: var(--cor-sucesso); }
+.statusPendente { background-color: var(--cor-alerta); color: var(--cor-alerta); }
+.statusAtrasado { background-color: var(--cor-perigo); color: var(--cor-perigo); }
+
+
+input[type="checkbox"] { cursor: pointer; width: 16px; height: 16px; accent-color: var(--cor-primaria); }
+.botaoDownloadIcone {
+  opacity: 0; cursor: pointer; background: transparent; border: none;
+  color: var(--cor-texto-secundario); justify-self: center; width: 32px; height: 32px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s ease;
+}
+.botaoDownloadIcone:hover { background-color: #E2E8F0; color: var(--cor-texto-principal); }
+
+
+.estadoVazio {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 48px 32px;
+  text-align: center; color: var(--cor-texto-secundario);
+}
+.estadoVazio h2 {
+  color: var(--cor-texto-principal); font-size: 1.25rem; font-weight: 600; margin: 16px 0 4px 0;
+}
+.estadoVazio p { font-size: 1rem; margin: 0; }

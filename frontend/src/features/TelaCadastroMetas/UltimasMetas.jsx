@@ -3,8 +3,9 @@ import { FaMapMarkerAlt, FaShapes, FaBuilding, FaChartLine, FaBullseye, FaCalend
 
 export function UltimasMetas() {
   return (
-    <div className={styles.container}>
-      <h4>Últimas metas registradas</h4>
+    <div className={styles.ultimasContainer}>
+      <h4 className={styles.titulo}>Últimas metas registradas</h4>
+
       <div className={styles.card}>
         <strong><FaMapMarkerAlt /> Aumentar engajamento nas redes sociais</strong>
         <p><FaShapes /> Tipo: Estratégica</p>
@@ -13,6 +14,7 @@ export function UltimasMetas() {
         <p><FaBullseye /> Valor Esperado: <span className={styles.highlight}>25%</span></p>
         <p><FaCalendarAlt /> Prazo: 30/06/2025</p>
       </div>
+
       <div className={styles.card}>
         <strong><FaMapMarkerAlt /> Reduzir tempo de atendimento ao cliente</strong>
         <p><FaShapes /> Tipo: Operacional</p>
@@ -24,4 +26,3 @@ export function UltimasMetas() {
     </div>
   );
 }
-

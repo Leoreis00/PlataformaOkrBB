@@ -1,129 +1,225 @@
+
+
 .container {
-  margin-top: 1rem; /* mt-4 */
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem; /* space-y-2 */
+  gap: 0.75rem; 
+  font-size: 14px; 
 }
 
-.alertWarning {
-  background-color: #fef3c7; /* bg-yellow-100 */
-  color: #b45309; /* text-yellow-800 */
-  padding: 0.5rem 1rem; /* px-4 py-2 */
-  border-radius: 0.375rem; /* rounded */
+
+.cardTitle {
+  font-family: 'Montserrat', sans-serif; 
+  font-size: 14px;
+  color: #2563EB;
+  font-weight: 600; 
+  margin-bottom: 1rem; 
+  padding-left: 0.25rem;
+}
+
+.alertBase {
   display: flex;
-  align-items: center;
-  gap: 0.5rem; /* gap-2 */
+  align-items: center; 
+  gap: 0.75rem; 
+  padding: 0.75rem 1rem; 
+  border-radius: 6px; 
   font-weight: 500;
 }
 
-.alertWarning .icon {
-  color: #b45309; /* amarelo escuro para ⚠️ */
-  font-size: 1.25rem; /* text-xl */
-  line-height: 1;
+
+
+
+.alertWarning {
+  composes: alertBase;
+  background-color: #fef3c7; /* Amarelo claro */
+  color: #b45309; /* Laranja/Marrom escuro */
 }
 
 .alertGray {
-  background-color: #f3f4f6; /* bg-gray-100 */
-  color: #374151; /* text-gray-800 */
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 500;
-}
-
-.alertGray .icon {
-  color: #374151; /* cinza escuro para ⚫ */
-  font-size: 1.25rem;
-  line-height: 1;
-}
-
-.alertWhite {
-  background-color: #ffffff; /* bg-white */
-  border: 1px solid #d1d5db; /* border-gray-300 */
-  color: #374151; /* text-gray-800 */
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.alertWhite .icon {
-  color: #10b981; /* verde esmeralda para ➕ */
-  font-size: 1.25rem;
-  line-height: 1;
-}
-
-.inputObservacao {
-  font-size: 1rem;
-  padding: 4px 8px;
-  border-radius: 4px;
-  border: 1px solid #d1d5db;
-}
-
-.observacoes {
-  max-height: 150px; /* altura fixa que você pode ajustar */
-  overflow-y: auto;  /* ativa a barra de rolagem vertical quando necessário */
-  margin-top: 1rem;
-  padding-right: 0.5rem; /* para evitar que texto fique escondido atrás da scrollbar */
-  border: 1px solid #e5e7eb; /* borda sutil para delimitar */
-  border-radius: 0.375rem;
-  background-color: #fafafa;
-}
-
-
-.observacaoItem {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #f3f4f6;
-  padding: 6px 10px;
-  border-radius: 4px;
-  margin-bottom: 8px;
-}
-
-.observacaoItem .icon {
-  color: #2563eb; /* azul para o ícone da observação */
-  font-size: 1.1rem;
-}
-
-.removeBtn {
-  background: transparent;
-  border: none;
-  color: #ef4444; /* vermelho para a lixeira */
-  margin-left: auto;
-  cursor: pointer;
-  font-size: 1.2rem;
-  padding: 0;
-  transition: color 0.2s;
-}
-
-.removeBtn:hover {
-  color: #b91c1c; /* vermelho escuro no hover */
+  composes: alertBase;
+  background-color: #f3f4f6; /* Cinza claro */
+  color: #374151; /* Cinza escuro */
 }
 
 .alertInfo {
-  background-color: #dbeafe; /* azul claro - bg-blue-100 */
-  color: #2563eb; /* azul escuro - text-blue-800 */
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 500;
+  composes: alertBase;
+  background-color: #dbeafe; /* Azul claro */
+  color: #2563eb; /* Azul primário */
 }
 
 .alertSuccess {
-  background-color: #dcfce7; /* verde claro - bg-green-100 */
-  color: #16a34a; /* verde escuro - text-green-700 */
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
+  composes: alertBase;
+  background-color: #dcfce7; 
+  color: #16a34a; 
+}
+
+
+.alertObservacao {
+  composes: alertBase; 
+  background-color: #fee2e2; 
+  color: #991b1b; 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between;
+  padding-right: 0.75rem; 
+}
+
+.alertObservacao .icon { 
+  color: #991b1b; 
+}
+
+.alertObservacao .texto {
+  flex: 1;
+  font-size: 14px;
+  margin-right: 0.5rem;
+  cursor: pointer; 
+}
+
+.editInput { 
+  font-size: 14px;
+  padding: 4px 12px; 
+  border-radius: 6px;
+  border: 1px solid #dc2626; 
+  flex: 1;
+  min-width: 0;
+  box-sizing: border-box; 
+  line-height: normal;
+  color: #991b1b; 
+  background-color: #fff5f5; 
+}
+
+.editInput::placeholder {
+  color: #ef4444; 
+}
+
+.editInput:focus {
+  outline: none;
+  border-color: #b91c1c; 
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15); 
+}
+
+.actions { 
+  display: flex;
+  gap: 0.5rem;
+}
+
+.iconBtn { 
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem; 
+  padding: 5px; 
+  border-radius: 4px;
+  transition: color 0.2s, background-color 0.2s;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  color: #2563eb; 
+}
+.iconBtn:hover {
+  color: #1d4ed8; 
+  background-color: rgba(37, 99, 235, 0.08); 
+}
+
+.alertObservacao .iconBtn {
+  color: #991b1b; 
+}
+.alertObservacao .iconBtn:hover {
+  color: #7f1d1d; 
+  background-color: rgba(153, 27, 27, 0.08); 
+}
+
+
+.alertWhite { 
+  composes: alertBase;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb; 
+  color: #374151;
+}
+
+.alertWhite .icon { 
+  color: #10b981; 
+  font-size: 1.2rem; 
+  line-height: 1; 
+}
+
+.inputForm { 
+  display: flex;
+  align-items: center; 
+  width: 100%; 
+  gap: 0.75rem; 
+}
+
+.inputObservacao { 
+  font-size: 14px;
+  padding: 4px 12px; 
+  border-radius: 6px;
+  border: 1px solid #d1d5db; 
+  flex: 1; 
+  min-width: 0; 
+  box-sizing: border-box;
+  line-height: normal; 
+}
+
+.inputObservacao::placeholder {
+  color: #9ca3af; 
+}
+
+.inputObservacao:focus {
+  outline: none;
+  border-color: #004c8f; 
+  box-shadow: 0 0 0 3px rgba(0, 76, 143, 0.15); 
+}
+
+.formActions { 
+  display: flex;
+  align-items: center; 
+  gap: 0.5rem; 
+}
+
+.addBtnPrimary {
+  background-color: #004c8f; 
+  color: white;
+  border: none;
+  padding: 4px 12px; 
+  border-radius: 6px;
+  font-size: 14px;
   font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  white-space: nowrap; 
+  line-height: normal; 
+}
+
+.addBtnPrimary:hover {
+  background-color: #003366; 
+}
+
+.cancelTextBtn {
+  background-color: transparent;
+  color: #4b5563; 
+  border: 1px solid #adb5bd; 
+  padding: 4px 12px; 
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  box-sizing: border-box; 
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out; 
+  white-space: nowrap;
+  line-height: normal; 
+}
+
+.cancelTextBtn:hover {
+  color: #1f2937; 
+  background-color: #f3f4f6;
+  border-color: #9ca3af; 
+}
+
+.icon { 
+  font-size: 1.25rem; 
+  line-height: 1; 
+  display: flex;
+  align-items: center;
 }

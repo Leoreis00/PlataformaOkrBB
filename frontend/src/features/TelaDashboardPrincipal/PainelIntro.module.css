@@ -1,37 +1,53 @@
 .titulo {
   margin-bottom: 1rem;
   color: #2563eb;
+  font-size: 14px;
 }
 
 .painel {
   position: relative;
   background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px; 
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   border: 1px solid #d1d5db;
-}
+  
 
+}
 .texto {
-  text-align: center; 
+  text-align: center;
   color: #333;
   font-size: 14px;
   line-height: 1.5;
-  margin: 0 auto; 
-  max-width: 500px; 
-  font-weight: bold;
+  max-width: 500px;
+  font-weight: 500;
 }
 
 .botao {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #2563eb;
+  color: white;
   border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.botao:hover {
+  background-color: #1e40af;
+}
+
+.botao:focus {
+  outline: 2px solid #93c5fd;
+  outline-offset: 2px;
 }
 
 .icone {
-  font-size: 20px;
-  color: #333; /* Cinza escuro como solicitado */
+  font-size: 1rem;
 }

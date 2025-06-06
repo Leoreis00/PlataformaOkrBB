@@ -1,21 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Legend, ResponsiveContainer
 } from 'recharts';
-
-const data = [
-  { subject: 'Marketing', Esforco: 60, Resultado: 40 },
-  { subject: 'Vendas', Esforco: 85, Resultado: 47 },
-  { subject: 'Operações', Esforco: 90, Resultado: 97 },
-  { subject: 'RH', Esforco: 75, Resultado: 73 },
-  { subject: 'TI', Esforco: 60, Resultado: 65 },
-  { subject: 'Financeiro', Esforco: 85, Resultado: 80 },
-];
+import axios from "axios";
+import styles from "./RadarDesempenho.module.css";
 
 export default function DesempenhoRadar() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    async function fetchRadarData() {
+      try {
+        const response = await axios.get("http://localhost:5000/api/okrs/grafico-radar"); // 👈 troque se estiver sem proxy
+        console.log("Radar data recebida:", response.data); // 👈 depuração
+        setData(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar dados do radar:", error);
+      }
+    }
+
+    fetchRadarData();
+  }, []);
+
+  if (!data || data.length === 0) {
+    return (
+      <div className={styles.container}>
+        <h3 className={styles.title}>Desempenho por Departamento</h3>
+        <p>Carregando dados...</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="container">
-      <h3 className="title">Desempenho por Departamento</h3>
+    <div className={styles.container}>
+      <h3 className={styles.title}>Desempenho por Departamento</h3>
       <ResponsiveContainer width="100%" height={348}>
         <RadarChart data={data}>
           <PolarGrid />

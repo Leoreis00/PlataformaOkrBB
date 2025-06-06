@@ -9,7 +9,7 @@ export function CriarMetas() {
       <h1 className={styles.titulo}>Criar metas</h1>
       <div className={styles.grid}>
         <FormCriarMeta />
-        <div>
+        <div className={styles.lateral}>
           <StatusMetas />
           <UltimasMetas />
         </div>

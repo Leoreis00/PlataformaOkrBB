@@ -1,5 +1,3 @@
-import { CriarMetas } from './CriarMetas';
-
 export default function CadastroMetas() {
-  return <CriarMetas />;
+return <div>Cadastro de Metas</div>;
 }

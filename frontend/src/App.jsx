@@ -2,16 +2,14 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './Layout/Layout';
 import DashboardPrincipal from './features/TelaDashboardPrincipal/DashboardPrincipal';
 import VisualizarOKR from './features/TelaVisualizacaoOKR/DashboardResumo';
-// Importe as telas que ainda não existem (crie arquivos vazios depois):
-import CadastroOKR from './features/TelaCadastroOKR/CadastroOKR';
 import GestaoOKRs from './features/TelaCadastroOKR/GestaoOKRs';
 import EditarOKR from './features/TelaCadastroOKR/EditarOKR';
-import CadastroMetas from './features/TelaCadastroMetas/CadastroMetas';
-import Relatorios from './features/TelaRelatorios/Relatorios';
 import Configuracoes from './features/TelaConfiguracoes/Configuracoes';
 import CadastroOKRsUnificada from './features/TelaCadastroOKR/CadastroOKRsUnificada';
 import Ajuda from './features/TelaAjuda/Ajuda';
 import Sobre from './features/TelaSobre/Sobre';
+import RelatoriosOKRs from './features/TelaRelatorios/PaginaRelatorios';
+import { CriarMetas } from './features/TelaCadastroMetas/CriarMetas';
 
 function App() {
   return (
@@ -26,12 +24,12 @@ function App() {
           <Route path="gestao" element={<GestaoOKRs />} />
           <Route path="editar/:id" element={<EditarOKR />} />
           <Route path="editar-okr/:id" element={<EditarOKR />} />
-          <Route path="cadastrar-meta" element={<CadastroMetas />} />
-          <Route path="relatorios" element={<Relatorios />} />
+          <Route path="cadastrar-meta" element={<CriarMetas />} />
+          <Route path="relatorios" element={<RelatoriosOKRs />} />
           <Route path="configuracoes" element={<Configuracoes />} />
           <Route path="ajuda" element={<Ajuda />} />
           <Route path="sobre" element={<Sobre />} />
-          {/* Rota para páginas não encontradas (opcional) */}
+          {/* Rota para páginas não encontradas */}
           <Route path="*" element={<h1>Página não encontrada</h1>} />
         </Route>
       </Routes>

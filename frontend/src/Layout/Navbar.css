@@ -34,7 +34,7 @@ a, .Link {
   left: 0;
   height: 100vh;
   overflow: hidden;
-  background-color: #3f51b5;
+  background-color: #2563EB;
   color: white;
   transition: width 0.3s ease;
   z-index: 1000;
@@ -146,7 +146,7 @@ a, .Link {
 }
 
 .submenu {
-  background-color: #2c387e;
+  background-color: #2563EB;
   padding: 0.3rem 0;
   margin-left: 1.2rem;
   border-left: 2px solid #FCFB30;

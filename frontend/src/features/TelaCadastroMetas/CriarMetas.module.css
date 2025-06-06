@@ -1,15 +1,30 @@
 .container {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding: 24px;
-    padding-left: 100px; /* ADICIONADO: espaço para o menu lateral */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 24px;
+  padding-left: 100px; 
 }
 
 .container .titulo {
-    color: #4e6ef2;
+  color: #2563EB;
+  font-size: 21px;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 24px;
+  text-align: left;
 }
 
 .grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: flex-start; 
+}
+
+
+
+.lateral {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-self: flex-start; 
+  margin-top: px; 
 }

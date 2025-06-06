@@ -1,41 +1,276 @@
-.formContainer {
-  padding: 20px;
-  border-radius: 8px;
-  background: white;
-  border: 1px solid #ccc;
-  margin-top: 20px;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+
+:root {
+  --azul-bb: #2563EB;
+  --amarelo-bb: #FCFB30;
+  --azul-escuro-bb: #2563EB;
+  --cinza-fundo: #f4f6f8;
+  --cinza-borda: #dfe3e8;
+  --cinza-texto: #555;
+  --texto-branco: #ffffff;
+  --sucesso: #2e7d32;
+  --erro: #c62828;
 }
 
-.formContainer form {
+.formulario {
+  background-color: var(--texto-branco);
+  padding: 2.5rem 2.5rem 10.3rem 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .08);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0.5rem;
+  font-family: 'Montserrat', sans-serif;
+  border: 2px solid var(--cinza-borda);
 }
 
-.formContainer span {
-  color: red;
+.formTitle {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin: 0 0 1rem;
+  font-size: 14px;
+  color: #2563EB;
+  font-weight: 700;
+  letter-spacing: .5px;
 }
 
-.formContainer h2 {
-  color: #4e6ef2;
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  /* gap: .5rem;
+  gap: 4rem;   
+  padding-top: 1rem;
 }
 
-.formContainer input,
-.formContainer select,
-.formContainer textarea {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  resize: none;
+
+.formulario label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cinza-texto);
+  margin-bottom: .4rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
-.formContainer button {
-  margin-top: 12px;
-  background: #4e6ef2;
-  color: white;
-  padding: 10px;
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+
+.inputIcon {
+  position: absolute;
+  left: 12px;
+  color: #90a4ae;
+  font-size: .9rem;
+  /* Removido pointer-events: none; para permitir o clique */
+  line-height: 1;
+  z-index: 1;
+}
+
+.inputIconTextarea {
+  position: absolute;
+  left: 12px;
+  top: .9rem;
+  color: #90a4ae;
+  font-size: .9rem;
+  pointer-events: none;
+  line-height: 1;
+  z-index: 1;
+}
+
+.formulario input[type="text"],
+.formulario input[type="date"],
+.formulario input[type="number"],
+.formulario select,
+.formulario textarea {
+  width: 100%;
+  padding: .8rem;
+  font-size: 12px;
+  font-family: 'Montserrat', sans-serif; /* Herdado, mas bom explicitar */
+  border: 1px solid var(--cinza-borda);
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: border-color .2s, box-shadow .2s;
+  background-color: #fdfdfd;
+}
+
+.formulario input::-moz-placeholder,
+.formulario textarea::-moz-placeholder {
+  color: #aaa;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.formulario input::placeholder,
+.formulario textarea::placeholder {
+  color: #aaa;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.formulario input:focus,
+.formulario select:focus,
+.formulario textarea:focus {
+  border-color: var(--azul-bb);
+  box-shadow: 0 0 0 3px rgba(63, 81, 181, .15);
+  outline: none;
+}
+
+/* Inputs/Textareas que estão dentro de um .inputWrapper precisam de padding à esquerda para o ícone */
+.inputWrapper input[type="text"],
+.inputWrapper input[type="date"],
+.inputWrapper input[type="number"],
+.inputWrapper textarea {
+  padding-left: 2.8rem; /* Espaço para o ícone (12px do ícone + padding) */
+}
+
+/* Seletor específico para o input de prazo, caso precise de ajustes finos
+    apenas para ele, além do padding-left geral do .inputWrapper > input */
+/* .inputPrazo { } */
+
+
+.formulario textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Layouts de Grid */
+.gridDois {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.gridTres {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+/* Botões do Formulário */
+.botoesForm {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.botaoPrincipal,
+.botaoCancelar {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  padding: .9rem;
+  font-size: .95rem;
+  font-weight: 600;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all .2s ease;
+  font-family: 'Montserrat', sans-serif; /* Garantir Montserrat nos botões também */
+}
+
+.botaoPrincipal {
+  background-color: #2563EB;
+  color: var(--texto-branco);
+}
+
+.botaoPrincipal:hover {
+  background-color: #1E40AF;
+}
+
+.botaoCancelar {
+  background-color: #e0e0e0;
+  color: var(--cinza-texto);
+}
+
+.botaoCancelar:hover {
+  background-color: #bdbdbd;
+}
+
+/* Mensagens de Feedback */
+.mensagemSucesso,
+.mensagemErro {
+  padding: .9rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  text-align: center;
+  font-size: .9rem;
+  font-weight: 500;
+}
+
+.mensagemSucesso {
+  color: var(--sucesso);
+  background-color: #e8f5e9;
+  border: 1px solid #a5d6a7;
+}
+
+.mensagemErro {
+  color: var(--erro);
+  background-color: #ffcdd2;
+  border: 1px solid #ef9a9a;
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 768px) {
+  .formulario {
+    padding: 1.5rem;
+  }
+
+  .gridDois,
+  .gridTres {
+    grid-template-columns: 1fr;
+  }
+
+  .formTitle {
+    font-size: 1.1rem;
+  }
+
+  .botoesForm {
+    flex-direction: column;
+  }
+
+  .botaoPrincipal,
+  .botaoCancelar {
+    width: 100%;
+  }
+}
+
+/* --- Esconde o ícone de calendário nativo do input type="date" --- */
+
+/* Para Chrome, Safari, Edge, Opera (Webkit browsers) */
+.formulario input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none; /* Garante que nenhum estilo padrão seja aplicado */
+}
+
+/* Para Firefox */
+.formulario input[type="date"] {
+  -moz-appearance: textfield; /* Remove o estilo padrão do Firefox */
+  position: relative; /* Para garantir que o ícone personalizado fique por cima */
+}
+/* Uma forma de remover o ícone de seta do Firefox sem afetar showPicker */
+.formulario input[type="date"]::-moz-focus-inner {
+  border: 0;
+}
+.formulario input[type="date"]::-moz-range-track {
+  background: transparent;
+}
+/* Alguns estilos para garantir que o texto não seja empurrado pelo ícone invisível */
+.formulario input[type="date"] {
+    padding-right: 12px; /* Ajuste o padding para não deixar espaço extra, se necessário */
+}
+
+/* Para Internet Explorer 10+ (embora menos comum hoje) */
+.formulario input[type="date"]::-ms-expand {
+  display: none;
+}
+.formulario input[type="date"]::-ms-clear {
+  display: none;
 }

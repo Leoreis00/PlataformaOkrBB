@@ -11,7 +11,7 @@
 .pageTitle {
   font-size: 2rem;
   font-weight: 700;
-  color: #003399; /* Azul BB */
+  color: #2563EB; 
   margin-bottom: 28px;
   text-align: left;
   letter-spacing: 0.03em;
@@ -50,7 +50,7 @@
 .cardNumber {
   font-weight: 700;
   font-size: 1.25rem;
-  color: #004b99; /* tom um pouco mais escuro */
+  color: #2563EB; 
   margin-right: 14px;
   min-width: 32px;
   text-align: center;
@@ -58,9 +58,9 @@
 }
 
 .cardTitle {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #002366;
+  font-size: 12px!important;
+  font-weight: 600;
+  color: #2563EB;
   margin: 0;
   flex: 1;
   line-height: 1.2;
@@ -90,17 +90,17 @@
 
 /* Status colors */
 .status.planejamento {
-  background-color: #f5a623; /* amarelo BB, mais suave e moderno */
+  background-color: #f5a623; 
   box-shadow: 0 0 8px #f5a623aa;
 }
 
 .status.emandamento {
-  background-color: #0055cc; /* azul BB, mais vivo */
+  background-color: #0055cc; 
   box-shadow: 0 0 8px #0055ccaa;
 }
 
 .status.concluido {
-  background-color: #009933; /* verde mais fresco */
+  background-color: #009933; 
   box-shadow: 0 0 8px #009933aa;
 }
 

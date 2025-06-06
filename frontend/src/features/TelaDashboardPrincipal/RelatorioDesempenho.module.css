@@ -1,49 +1,76 @@
+/* src/features/TelaDashboardPrincipal/RelatorioDesempenho.module.css */
+
 .container {
   background-color: white;
   padding: 20px;
   border-radius: 8px;
-  min-height: 348px; 
+  min-height: 346px; /* Mantido conforme o original, ajuste se necessário com o novo botão */
   border: 1px solid #d1d5db;
+  margin-top: 15px;
+  display: flex; /* Adicionado para melhor controle do posicionamento do botão */
+  flex-direction: column; /* Organiza o conteúdo verticalmente */
 }
 
-.links {
-  margin-top: 20px;
-  display: flex;
-  gap: 20px;
-  padding-top: 14px;
-  font-size: 0.9rem;
-}
+/* Removido .links e .link, pois foram substituídos */
 
-h4{
+h4 {
   display: flex;
   justify-content: center;
-  margin: 5px;
+  margin: 5px 0 15px 0; /* Ajuste na margem inferior para dar espaço */
+  font-size: 14px;
 }
 
-p{
-  margin-top: 20px;
+p {
+  margin-top: 10px; /* Reduzida a margem para parágrafos para um layout mais compacto */
+  font-size: 14px;
+  line-height: 1.5; /* Melhora a legibilidade */
 }
 
-.link {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: #0366d6; /* azul */
-  font-weight: 600;
-  cursor: pointer;
-  transition: color 0.2s ease;
-}
-
-.link:hover {
-  color: #023e8a;
-}
-
-.icon {
-  margin-right: 8px;
-  font-size: 1.2rem;
+p strong {
+  font-size: 14px;
+  font-weight: 600; 
 }
 
 .titulo {
-  margin-bottom: 1rem;
   color: #2563eb;
+  margin-top: 0px;
+  margin-bottom: 3px;
+  font-size: 14px; 
+}
+
+
+.actionsContainer {
+  margin-top: auto; 
+  padding-top: 20px; 
+  display: flex;
+  justify-content: flex-end; 
+}
+
+
+.botaoPrincipalRelatorios {
+  background-color: #2563EB; 
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; 
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.botaoPrincipalRelatorios:hover {
+  background-color: #1D4ED8; 
+}
+
+.botaoPrincipalRelatorios:active {
+  transform: translateY(1px); 
+}
+
+.botaoIcone {
+  font-size: 1em; 
 }

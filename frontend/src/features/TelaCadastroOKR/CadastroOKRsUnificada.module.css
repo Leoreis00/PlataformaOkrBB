@@ -1,182 +1,622 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
-:global(body) {
-  font-family: 'Montserrat', sans-serif;
-  margin: 0;
-  background-color: #f5f7fa;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+
+:root {
+  --azul-bb: #2563EB;
+  --amarelo-bb: #FCFB30;
+  --azul-escuro-bb: #3F51B5;
+  --cinza-fundo: #f4f6f8;
+  --cinza-borda: #dfe3e8;
+  --cinza-texto: #555;
+  --texto-branco: #ffffff;
+  --sucesso: #2e7d32;
+  --erro: #c62828;
+  --progresso-vermelho: #ef4444;
+  --progresso-azul: #2563eb;
+  --progresso-verde: #22c55e;
+
+  
+  --header-planejamento: #e3f2fd; 
+  --header-em-andamento: #fffde7; 
+  --header-concluido: #e8f5e9; 
+  --header-bloqueado: #ffebee; 
+  --header-cancelado: #eceff1; 
 }
 
+
 .pageWrapper {
-  padding: 2rem 2rem 2rem 100px;
+  padding: 2rem;
+  padding-left: calc(2rem + 80px);
+  background-color: var(--cinza-fundo);
+  font-family: 'Montserrat', sans-serif;
   min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+ 
 }
 
 .pageTitle {
-  color: #3F51B5;
-  margin-bottom: 1rem;
+  color: #2563EB;
   font-weight: 700;
-  font-size: 1.5rem;
-  font-family: 'Montserrat', sans-serif;
+  font-size: 21px;
+  margin: 0;
+}
+
+.headerActions {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.botaoNavegacao {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.botaoVisualizar {
+  background-color: var(--azul-bb);
+  color: var(--texto-branco);
+  padding: 0.6rem 1rem;
+  font-size: 12px;
+  border: none;
+  
+}
+
+.botaoVisualizar:hover {
+  background-color: #4a5cc2;
+  color: var(--texto-branco);
+  border: none;
 }
 
 .container {
-  display: flex;
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-columns: minmax(400px, 480px) 1fr;
+  gap: 2.5rem;
   align-items: flex-start;
-  gap: 2rem;
+}
+
+.formularioWrapper {
+  position: sticky;
+  top: 2rem;
 }
 
 .formulario {
-  flex: 1;
-  min-width: 320px;
-  max-width: 500px;
-  background-color: #ffffff;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  background-color: var(--texto-branco);
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .08);
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
-  font-family: 'Montserrat', sans-serif;
+  gap: 1.5rem
 }
 
-.formulario h2 {
-  margin-bottom: 0.2rem;
-  color: #003366;
-  font-size: 1.25rem;
+.formTitle {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin: 0 0 1rem;
+  font-size: 14px;
+  color: var(--azul-bb);
+  font-weight: 700;
+  letter-spacing: .5px
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: 12px;
+}
+
+.formulario label {
+  display: block;
+  font-size: 12px;
   font-weight: 600;
-  font-family: 'Montserrat', sans-serif;
+  color: var(--cinza-texto);
+  margin-bottom: .4rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center
+}
+
+.inputIcon {
+  position: absolute;
+  left: 12px;
+  color: #90a4ae;
+  font-size: .9rem;
+  pointer-events: none;
+  line-height: 1;
+  z-index: 1
+}
+
+.inputIconTextarea {
+  position: absolute;
+  left: 12px;
+  top: .9rem;
+  color: #90a4ae;
+  font-size: .9rem;
+  pointer-events: none;
+  line-height: 1;
+  z-index: 1
 }
 
 .formulario input,
 .formulario select,
 .formulario textarea {
-  padding: 0.4rem 0.6rem;
-  font-size: 0.9rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  outline-color: #fdd835;
-  resize: vertical;
+  width: 100%;
+  padding: .8rem;
+  font-size: 12px;
   font-family: 'Montserrat', sans-serif;
+  border: 1px solid var(--cinza-borda);
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: border-color .2s, box-shadow .2s;
+  background-color: #fdfdfd
+}
+
+.formulario input::-moz-placeholder,
+.formulario textarea::-moz-placeholder {
+  color: #aaa
+}
+
+.formulario input::placeholder,
+.formulario textarea::placeholder {
+  color: #aaa
+}
+
+.formulario input:focus,
+.formulario select:focus,
+.formulario textarea:focus {
+  border-color: var(--azul-bb);
+  box-shadow: 0 0 0 3px rgba(63, 81, 181, .15);
+  outline: none
+}
+
+.inputWrapper input,
+.inputWrapper textarea {
+  padding-left: 2.8rem
 }
 
 .formulario textarea {
-  min-height: 80px;
+  min-height: 80px
 }
 
-.formulario button {
-  background-color: #003366;
-  color: white;
-  padding: 0.75rem;
-  font-size: 1rem;
+.gridDois {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem
+}
+
+.gridTres {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem
+}
+
+.botoesForm {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem
+}
+
+.botaoPrincipal,
+.botaoCancelar {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  padding: .9rem;
+  font-size: .95rem;
+  font-weight: 600;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-  font-family: 'Montserrat', sans-serif;
+  transition: all .2s ease
 }
 
-.formulario button:hover {
-  background-color: #002244;
+.botaoPrincipal {
+  background-color: #2563EB;
+  color: var(--texto-branco)
 }
 
-.mensagem {
-  color: green;
-  font-weight: 500;
-  margin-top: 0.5rem;
-  font-family: 'Montserrat', sans-serif;
+.botaoPrincipal:hover {
+  background-color: #31408f
+}
+
+.botaoCancelar {
+  background-color: #e0e0e0;
+  color: var(--cinza-texto)
+}
+
+.botaoCancelar:hover {
+  background-color: #bdbdbd
+}
+
+.mensagemSucesso,
+.mensagemErro {
+  padding: .9rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  text-align: center;
+  font-size: .9rem;
+  font-weight: 500
+}
+
+.mensagemSucesso {
+  color: var(--sucesso);
+  background-color: #e8f5e9;
+  border: 1px solid #a5d6a7
+}
+
+.mensagemErro {
+  color: var(--erro);
+  background-color: #ffcdd2;
+  border: 1px solid #ef9a9a
+}
+
+
+.colunaCards {
+  display: flex;
+  flex-direction: column;
+  min-width: 0
+}
+
+.cardsHeader {
+  margin-bottom: 1.5rem;
+  padding: 0 0.25rem;
+  font-size: 12px;
+}
+
+.cardsHeader h2 {
+  margin: 0;
+  font-size: 14px;
+  color: var(--azul-bb);
+  font-weight: 700;
+  letter-spacing: .5px
 }
 
 .cardsContainer {
-  flex: 2;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  align-content: start;
-  margin-top: 0;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.75rem;
+  align-content: start
 }
 
 .cardOKR {
-  background-color: #ffffff;
-  border: 1px solid #cfd8dc;
-  padding: 1rem;           /* padding reduzido */
+  background-color: var(--texto-branco);
+  border: 1px solid var(--cinza-borda);
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .06);
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;            /* gap reduzido */
-  transition: box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
-  font-family: 'Montserrat', sans-serif;
+  transition: all .2s ease-in-out
 }
 
 .cardOKR:hover {
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-  background-color: #fffdee;
-  border-color: #fdd835;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .1);
+  background-color: #eef1f5;
+  border-color: var(--azul-bb)
 }
 
-.cardOKR h3 {
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: .75rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--cinza-borda);
+  /* Transição para a cor de fundo */
+  transition: background-color 0.2s ease;
+  border-top-left-radius: 12px; /* Garante cantos arredondados na cor */
+  border-top-right-radius: 12px; /* Garante cantos arredondados na cor */
+}
+
+/* Estilos de cor para o cabeçalho do card baseados no status */
+.cardHeader.statusplanejamento-bg {
+  background-color: var(--header-planejamento);
+}
+.cardHeader.statusemandamento-bg {
+  background-color: var(--header-em-andamento);
+}
+.cardHeader.statusconcluído-bg {
+  background-color: var(--header-concluido);
+}
+.cardHeader.statusbloqueado-bg {
+  background-color: var(--header-bloqueado);
+}
+.cardHeader.statuscancelado-bg {
+  background-color: var(--header-cancelado);
+}
+
+
+.cardHeader h3 {
   margin: 0;
-  font-size: 1.05rem;      /* fonte menor */
-  color: #003366;
+  font-size: 12px;
+  color: #2563EB;
   font-weight: 700;
-  font-family: 'Montserrat', sans-serif;
+  line-height: 1.4
 }
 
-.cardOKR p {
+.cardIndex {
+  color: var(--azul-bb);
+  font-weight: 600;
+  margin-right: .25em
+}
+
+.statusBadge {
+  padding: .3rem .75rem;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  white-space: nowrap;
+  flex-shrink: 0
+}
+
+.statusplanejamento {
+  background-color: #e3f2fd;
+  color: #0d47a1;
+  border: 1px solid #bbdefb
+}
+
+.statusemandamento {
+  background-color: #fffde7;
+  color: #f9a825;
+  border: 1px solid #fff59d
+}
+
+.statusconcluído {
+  background-color: #e8f5e9;
+  color: var(--sucesso);
+  border: 1px solid #a5d6a7
+}
+
+.statusbloqueado {
+  background-color: #ffebee;
+  color: var(--erro);
+  border: 1px solid #ef9a9a
+}
+
+.statuscancelado {
+  background-color: #eceff1;
+  color: var(--cinza-texto);
+  border: 1px solid #cfd8dc
+}
+
+.cardBody {
+  padding: 1rem 1.25rem;
+  display: grid;
+  gap: .5rem;
+  flex-grow: 1;
+  color: var(--cinza-texto)
+}
+
+.cardBody p {
+  font-size: 12px !important;
   margin: 0;
-  font-size: 0.85rem;      /* fonte menor */
-  font-family: 'Montserrat', sans-serif;
+  line-height: 1.5
 }
 
-.cardOKR p strong {
-  display: inline-block;
-  min-width: 120px;
-  color: #3F51B5;
+.cardBody p strong {
+  color: #000;
+  font-size: 12px !important;
+  font-weight: 600;
+  margin-right: .3em
 }
 
-.cardOKR p:nth-child(3) strong {
-  color: #3F51B5;
+.cardInfoIcon {
+  color: var(--azul-bb);
+  margin-right: .5em;
+  font-size: .9em
 }
 
-.cardOKR p:nth-child(4) strong {
-  color: #3F51B5;
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .75rem 1.25rem;
+  background-color: #f9f9fb;
+  border-top: 1px solid var(--cinza-borda);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  margin-top: auto
 }
 
-.cardOKR p:nth-child(5) strong {
-  color: #465EFF;
+.progressoInfo {
+  display: flex;
+  align-items: center;
+  gap: .2rem;
+  flex-grow: 1
+}
+
+.progressText {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--cinza-texto);
+  text-align: left
+}
+
+.progressBarContainer {
+  flex-grow: 1;
+  max-width: 80px;
+  height: 10px;
+  background-color: #e9ecef;
+  border-radius: 5px;
+  overflow: hidden
+}
+
+.progressBarFill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width .4s ease-in-out, background-color .4s ease-in-out
+}
+
+.progressRed {
+  background-color: var(--progresso-vermelho)
+}
+
+.progressBlue {
+  background-color: var(--progresso-azul)
+}
+
+.progressGreen {
+  background-color: var(--progresso-verde)
 }
 
 .cardButtons {
   display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;             /* gap reduzido */
-  margin-top: auto;
-  padding-top: 0.8rem;     /* padding top reduzido */
-  border-top: 1px solid #e0e0e0;
+  gap: 1rem
 }
 
-.cardButtons button {
-  background: none;
+.acaoLink {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  background: 0 0;
   border: none;
-  color: #003366;
   cursor: pointer;
-  font-size: 1rem;         /* fonte menor */
-  transition: color 0.2s ease, background-color 0.2s ease;
-  border-radius: 6px;
-  padding: 0.3rem;         /* padding reduzido */
-  font-family: 'Montserrat', sans-serif;
+  color: var(--cinza-texto);
+  font-size: 12px;
+  font-weight: 500;
+  padding: .25rem;
+  transition: color .2s
 }
 
-.cardButtons button:hover {
-  color: #ffe364;
-  background-color: #f0f0f0;
+.acaoLink svg {
+  font-size: .9rem
 }
-.subTitle {
-  color: #3F51B5;
-  margin-bottom: 1rem;
-  font-weight: 700;
-  font-size: 1.25rem;
+
+.acaoLink:hover {
+  color: var(--azul-bb)
+}
+
+.acaoExcluir:hover {
+  color: var(--erro)
+}
+
+.semOkrs {
+  grid-column: 1/-1;
+  text-align: center;
+  padding: 3rem;
+  color: #757575;
+  font-size: 1rem
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 1350px) {
+  .container {
+    grid-template-columns: 1fr
+  }
+
+  .formularioWrapper {
+    max-width: 700px;
+    margin: 0 auto;
+    position: static
+  }
+
+  .cardsContainer {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr))
+  }
+}
+
+@media (max-width: 768px) {
+  .pageWrapper {
+    padding: 1.5rem;
+    padding-left: 1.5rem
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem
+  }
+
+  .headerActions {
+    width: 100%;
+    flex-direction: column
+  }
+
+  .botaoNavegacao {
+    justify-content: center
+  }
+
+  .cardsContainer {
+    grid-template-columns: 1fr
+  }
+
+  .gridDois,
+  .gridTres {
+    grid-template-columns: 1fr
+  }
+}
+
+
+.filtroWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.filtroLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--azul-bb);
+  white-space: nowrap;
+}
+
+.filtroSelect {
+  padding: 0.6rem 1rem;
+  font-size: 12px;
   font-family: 'Montserrat', sans-serif;
-  text-align: right;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--azul-bb);
+  color: var(--texto-branco);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  /* Removido transform e box-shadow no hover/focus para ficar fixo */
+}
+
+.filtroSelect:hover {
+  background-color: #31408f;
+  color: var(--texto-branco);
+  /* box-shadow: 0 4px 12px rgba(63, 81, 181, 0.3); */ /* Removido */
+  /* transform: translateY(-2px); */ /* Removido */
+}
+
+.filtroSelect:focus {
+  border-color: var(--azul-bb);
+  /* box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.15); */ /* Removido */
+  outline: none;
+  background-color: #31408f;
+  color: var(--texto-branco);
+}
+
+.filtroSelect option {
+  color: var(--cinza-texto);
+  background-color: var(--texto-branco);
 }

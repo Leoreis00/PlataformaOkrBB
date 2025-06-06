@@ -1,9 +1,22 @@
-.container {
-  margin-top: 16px;
+.ultimasContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-.container h4{
+.titulo {
+  width: 100%;
   color: #4e6ef2;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 2px;
+  text-align: left;
+  display: block;
+  align-self: flex-start !important; 
+  margin-left: 0 !important;
+  padding-left: 0 !important;
 }
 
 .card {
@@ -12,14 +25,28 @@
   margin-top: 12px;
   border-radius: 8px;
   background: white;
+  font-family: 'Montserrat', sans-serif;
+  width: 100%;
+}
+
+.card strong {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  color: #333; 
+}
+
+.card p {
+  font-size: 13px;
+  margin: 4px 0;    
 }
 
 .link {
-  color: #4e6ef2;
+  color: #2563EB;
   cursor: pointer;
 }
 
 .highlight {
-  color: #3c52fc;
+  color: #2563EB;
   font-weight: bold;
 }

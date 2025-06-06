@@ -9,6 +9,7 @@
   color: #2563eb;
   font-weight: 600;
   margin-bottom: 1rem;
+  font-size: 14px;
 }
 
 .footerText {
@@ -21,4 +22,5 @@
 .titulo {
   margin-bottom: 1rem;
   color: #2563eb;
+  font-size: 14px;
 }

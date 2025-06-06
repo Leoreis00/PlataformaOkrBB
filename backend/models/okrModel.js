@@ -1,3 +1,4 @@
+// backend/models/okrModel.js
 const db = require('../config/db');
 
 // Criar nova OKR
@@ -26,7 +27,7 @@ exports.createOKR = (okrData, callback) => {
       status,
       descricao,
       progresso,
-      impacto_financeiro,
+      impacto_financeo,
       trimestre,
       peso_kpi
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -47,9 +48,34 @@ exports.createOKR = (okrData, callback) => {
   ], callback);
 };
 
-// Buscar todas as OKRs
-exports.getAllOKRs = (callback) => {
-  db.query('SELECT * FROM okrs', callback);
+// Buscar todas as OKRs com filtros
+exports.getAllOKRs = (trimestre, departamento, callback) => {
+  let query = "SELECT * FROM okrs WHERE 1=1"; // 'WHERE 1=1' facilita a adição de condições
+  const params = [];
+
+  // Se um trimestre específico for passado e não for "Todos"
+  if (trimestre && trimestre !== "Todos") {
+    // É importante que o valor de `trimestre` no seu banco de dados
+    // corresponda ao que você está enviando. Se for "1", "2", "3", "4"
+    // no banco, certifique-se de que o frontend envia "1", "2", "3", "4".
+    // No `okrApi.js`, eu já adicionei `.replace("º Trimestre", "")` para isso.
+    query += " AND trimestre = ?";
+    params.push(trimestre);
+  }
+
+  // Se um departamento específico for passado e não for "Todos"
+  if (departamento && departamento !== "Todos") {
+    query += " AND area_responsavel = ?";
+    params.push(departamento);
+  }
+
+  db.query(query, params, (err, results) => {
+    if (err) {
+      console.error("Erro ao buscar OKRs no modelo:", err);
+      return callback(err, null);
+    }
+    callback(null, results);
+  });
 };
 
 // Buscar OKR por ID

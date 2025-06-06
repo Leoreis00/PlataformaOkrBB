@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -11,15 +11,43 @@ import {
   LabelList,
 } from "recharts";
 import styles from "./GraficoTrimestre.module.css";
-
-const dataBar = [
-  { trimestre: "Q1", Resultado: 54, Esforço: 65 },
-  { trimestre: "Q2", Resultado: 51, Esforço: 60 },
-  { trimestre: "Q3", Resultado: 43, Esforço: 70 },
-  { trimestre: "Q4", Resultado: 27, Esforço: 82 },
-];
+import axios from "axios";
 
 export default function GraficoTrimestre() {
+  const [dataBar, setDataBar] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get("http://localhost:5000/api/okrs");
+        const dados = response.data;
+
+        const trimestres = ["Q1", "Q2", "Q3", "Q4"];
+        const resultado = trimestres.map((t) => {
+          const resultadoTotal = dados
+            .filter((item) => item.trimestre === t && item.tipo === "Resultado")
+            .reduce((acc, curr) => acc + curr.progresso, 0);
+
+          const esforcoTotal = dados
+            .filter((item) => item.trimestre === t && item.tipo === "Esforço")
+            .reduce((acc, curr) => acc + curr.progresso, 0);
+
+          return {
+            trimestre: t,
+            Resultado: resultadoTotal,
+            Esforço: esforcoTotal,
+          };
+        });
+
+        setDataBar(resultado);
+      } catch (error) {
+        console.error("Erro ao buscar dados do gráfico:", error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <div>
       <h3 className={styles.titulo}>Carga de OKR</h3>

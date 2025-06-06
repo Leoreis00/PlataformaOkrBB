@@ -7,6 +7,9 @@ router.get('/resumo', okrController.getResumoOKRs);
 
 // GET - Dados para gráfico por trimestre
 router.get('/grafico-trimestre', okrController.getGraficoTrimestre);
+// GET - Dados para gráfico radar
+router.get('/grafico-radar', okrController.getRadarDesempenho);
+
 // POST para cadastrar
 router.post('/', okrController.createOKR);
 
