@@ -1,51 +1,48 @@
 // backend/config/db.js
-
-const mysql = require('mysql2/promise');
+const mysql = require('mysql2');
 require('dotenv').config();
 
-console.log('Inicializando configuração do banco de dados...');
-
 const dbConfig = {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT,
-    
-    // NÃO vamos forçar SSL, pois o servidor não suporta.
-    // A remoção do bloco 'ssl' é a correção principal aqui.
-    
-    // Configurações para tornar o pool de conexões robusto
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0,
-    connectTimeout: 20000 // 20 segundos
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
+  // Configurações para o pool de conexões:
+  waitForConnections: true, // Se não houver conexões disponíveis, espera
+  connectionLimit: 10,     // Número máximo de conexões no pool
+  queueLimit: 0            // Número máximo de requisições pendentes na fila
 };
 
-// Crie o pool de conexões com a configuração correta
+// Crie o pool de conexões
 const pool = mysql.createPool(dbConfig);
 
-// Função assíncrona para testar a conexão na inicialização
-async function testDbConnection() {
-    let connection;
-    try {
-        // Tenta obter uma conexão do pool
-        connection = await pool.getConnection();
-        console.log('Conectado ao banco de dados MySQL com sucesso (via Pool).');
-    } catch (err) {
-        console.error('ERRO FATAL ao conectar ao banco de dados MySQL:', err.message);
-        // Encerra a aplicação se não conseguir conectar na inicialização
-        process.exit(1);
-    } finally {
-        // Garante que a conexão seja liberada de volta para o pool
-        if (connection) {
-            connection.release();
+// Opcional: Adicionar listeners para monitorar o pool e a conexão
+pool.on('connection', (connection) => {
+    console.log('Nova conexão MySQL obtida do pool.');
+});
+
+pool.on('error', (err) => {
+    console.error('Erro no pool de conexões MySQL:', err.code, err.message);
+    // Este evento pode indicar um erro fatal no pool; o Render pode reiniciar o serviço.
+});
+
+// Testar a conexão inicial do pool
+// Isso garante que as credenciais estão corretas e o DB está acessível na inicialização
+pool.getConnection((err, connection) => {
+    if (err) {
+        console.error('Erro fatal ao conectar ao banco de dados MySQL no pool:', err);
+        if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNRESET') {
+            console.warn('Conexão MySQL perdida durante o teste inicial do pool. O pool tentará restabelecer automaticamente.');
+        } else {
+            // Outro tipo de erro, como credenciais incorretas ou host inacessível.
+            // Considerar encerrar o processo para evitar mais erros.
+            process.exit(1);
         }
+    } else {
+        console.log('Conectado ao banco de dados MySQL (via Pool).');
+        connection.release(); // Libera a conexão de volta para o pool imediatamente
     }
-}
+});
 
-// Executa o teste de conexão
-testDbConnection();
-
-// Exporte o pool de conexões para ser usado no resto da aplicação
-module.exports = pool;
+module.exports = pool; // Exporte o pool de conexões
