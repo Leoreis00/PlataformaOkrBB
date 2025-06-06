@@ -1,7 +1,6 @@
 // backend/controllers/okrController.js
 const Okr = require('../models/okrModel');
 
-// --- CRUD ---
 exports.createOKR = async (req, res) => {
     try {
         const okr = await Okr.create(req.body);
@@ -12,7 +11,8 @@ exports.createOKR = async (req, res) => {
     }
 };
 
-exports.getAllOKRs = async (req, res) => {
+// NOME CORRIGIDO:
+exports.getOKRs = async (req, res) => {
     try {
         const { trimestre, departamento } = req.query;
         const okrs = await Okr.getAll(trimestre, departamento);
@@ -20,6 +20,20 @@ exports.getAllOKRs = async (req, res) => {
     } catch (err) {
         console.error('Erro no controller ao buscar OKRs:', err);
         res.status(500).json({ error: 'Erro ao buscar OKRs' });
+    }
+};
+
+// FUNÇÃO ADICIONADA:
+exports.getOKRById = async (req, res) => {
+    try {
+        const okr = await Okr.findById(req.params.id);
+        if (!okr) {
+            return res.status(404).json({ error: 'OKR não encontrada' });
+        }
+        res.status(200).json(okr);
+    } catch (err) {
+        console.error('Erro no controller ao buscar OKR por ID:', err);
+        res.status(500).json({ error: 'Erro ao buscar OKR' });
     }
 };
 
@@ -106,17 +120,5 @@ exports.getRadarDesempenho = async (req, res) => {
     } catch (err) {
         console.error('Erro no controller ao buscar dados do radar:', err);
         res.status(500).json({ error: 'Erro ao buscar dados do radar' });
-    }
-};
-
-// Renomeei esta função para evitar duplicidade. Ajuste suas rotas se necessário.
-exports.getOKRsComFiltros = async (req, res) => {
-    try {
-        const { trimestre, departamento } = req.query;
-        const okrs = await Okr.getAll(trimestre, departamento);
-        res.status(200).json(okrs);
-    } catch (err) {
-        console.error("Erro no controller ao buscar OKRs:", err);
-        res.status(500).json({ error: "Erro ao buscar OKRs" });
     }
 };

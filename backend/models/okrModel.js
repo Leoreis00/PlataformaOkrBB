@@ -34,6 +34,13 @@ Okr.getAll = async (trimestre, departamento) => {
     return rows;
 };
 
+// FUNÇÃO ADICIONADA:
+Okr.findById = async (id) => {
+    const sql = 'SELECT * FROM okrs WHERE id = ?';
+    const [rows] = await promisePool.query(sql, [id]);
+    return rows[0]; // Retorna o primeiro resultado ou undefined
+};
+
 Okr.update = async (id, okrData) => {
     const sql = `UPDATE okrs SET objetivo = ?, resultado_chave = ?, area_responsavel = ?, periodo = ?, tipo = ?, status = ?, descricao = ?, progresso = ?, impacto_financeiro = ?, trimestre = ?, peso_kpi = ? WHERE id = ?`;
     const values = [
@@ -69,7 +76,5 @@ Okr.getRadarDesempenho = async () => {
     const [rows] = await promisePool.query(query);
     return rows;
 };
-
-// Adicione aqui outras funções como getOKRById, se tiver.
 
 module.exports = Okr;
