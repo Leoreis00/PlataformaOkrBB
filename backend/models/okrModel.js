@@ -1,144 +1,75 @@
 // backend/models/okrModel.js
 const db = require('../config/db');
 
-// Criar nova OKR
-exports.createOKR = (okrData, callback) => {
-  const {
-    objetivo,
-    resultado_chave,
-    area_responsavel,
-    periodo,
-    tipo,
-    status,
-    descricao,
-    progresso,
-    impacto_financeiro,
-    trimestre,
-    peso_kpi
-  } = okrData;
+// Usamos a versão com Promise do pool para usar async/await
+const promisePool = db.promise();
 
-  const sql = `
-    INSERT INTO okrs (
-      objetivo,
-      resultado_chave,
-      area_responsavel,
-      periodo,
-      tipo,
-      status,
-      descricao,
-      progresso,
-      impacto_financeiro,
-      trimestre,
-      peso_kpi
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `;
+const Okr = {};
 
-  db.query(sql, [
-    objetivo,
-    resultado_chave,
-    area_responsavel,
-    periodo,
-    tipo,
-    status,
-    descricao,
-    progresso,
-    impacto_financeiro,
-    trimestre,
-    peso_kpi
-  ], callback);
+// --- CRUD ---
+Okr.create = async (okrData) => {
+    const sql = `INSERT INTO okrs (objetivo, resultado_chave, area_responsavel, periodo, tipo, status, descricao, progresso, impacto_financeiro, trimestre, peso_kpi) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const values = [
+        okrData.objetivo, okrData.resultado_chave, okrData.area_responsavel, okrData.periodo, 
+        okrData.tipo, okrData.status, okrData.descricao, okrData.progresso, 
+        okrData.impacto_financeiro, okrData.trimestre, okrData.peso_kpi
+    ];
+    const [result] = await promisePool.query(sql, values);
+    return { id: result.insertId, ...okrData };
 };
 
-// Buscar todas as OKRs com filtros
-exports.getAllOKRs = (trimestre, departamento, callback) => {
-  let query = "SELECT * FROM okrs WHERE 1=1"; // 'WHERE 1=1' facilita a adição de condições
-  const params = [];
-
-  // Se um trimestre específico for passado e não for "Todos"
-  if (trimestre && trimestre !== "Todos") {
-    // É importante que o valor de `trimestre` no seu banco de dados
-    // corresponda ao que você está enviando. Se for "1", "2", "3", "4"
-    // no banco, certifique-se de que o frontend envia "1", "2", "3", "4".
-    // No `okrApi.js`, eu já adicionei `.replace("º Trimestre", "")` para isso.
-    query += " AND trimestre = ?";
-    params.push(trimestre);
-  }
-
-  // Se um departamento específico for passado e não for "Todos"
-  if (departamento && departamento !== "Todos") {
-    query += " AND area_responsavel = ?";
-    params.push(departamento);
-  }
-
-  db.query(query, params, (err, results) => {
-    if (err) {
-      console.error("Erro ao buscar OKRs no modelo:", err);
-      return callback(err, null);
+Okr.getAll = async (trimestre, departamento) => {
+    let query = "SELECT * FROM okrs WHERE 1=1";
+    const params = [];
+    if (trimestre && trimestre !== "Todos") {
+        query += " AND trimestre = ?";
+        params.push(trimestre);
     }
-    callback(null, results);
-  });
+    if (departamento && departamento !== "Todos") {
+        query += " AND area_responsavel = ?";
+        params.push(departamento);
+    }
+    query += " ORDER BY id DESC";
+    const [rows] = await promisePool.query(query, params);
+    return rows;
 };
 
-// Buscar OKR por ID
-exports.getOKRById = (id, callback) => {
-  const query = 'SELECT * FROM okrs WHERE id = ?';
-  db.query(query, [id], (err, results) => {
-    if (err) return callback(err);
-    if (results.length === 0) return callback(null, null);
-    callback(null, results[0]);
-  });
+Okr.update = async (id, okrData) => {
+    const sql = `UPDATE okrs SET objetivo = ?, resultado_chave = ?, area_responsavel = ?, periodo = ?, tipo = ?, status = ?, descricao = ?, progresso = ?, impacto_financeiro = ?, trimestre = ?, peso_kpi = ? WHERE id = ?`;
+    const values = [
+        okrData.objetivo, okrData.resultado_chave, okrData.area_responsavel, okrData.periodo,
+        okrData.tipo, okrData.status, okrData.descricao, okrData.progresso,
+        okrData.impacto_financeiro, okrData.trimestre, okrData.peso_kpi, id
+    ];
+    const [result] = await promisePool.query(sql, values);
+    return result;
 };
 
-// Excluir OKR
-exports.deleteOKR = (id, callback) => {
-  const query = 'DELETE FROM okrs WHERE id = ?';
-  db.query(query, [id], callback);
+Okr.delete = async (id) => {
+    const sql = 'DELETE FROM okrs WHERE id = ?';
+    const [result] = await promisePool.query(sql, [id]);
+    return result;
 };
 
-// Atualizar OKR
-exports.updateOKR = (id, okrData, callback) => {
-  const {
-    objetivo,
-    resultado_chave,
-    area_responsavel,
-    periodo,
-    tipo,
-    status,
-    descricao,
-    progresso,
-    impacto_financeiro,
-    trimestre,
-    peso_kpi
-  } = okrData;
-
-  const sql = `
-    UPDATE okrs
-    SET
-      objetivo = ?,
-      resultado_chave = ?,
-      area_responsavel = ?,
-      periodo = ?,
-      tipo = ?,
-      status = ?,
-      descricao = ?,
-      progresso = ?,
-      impacto_financeiro = ?,
-      trimestre = ?,
-      peso_kpi = ?
-    WHERE id = ?
-  `;
-
-  db.query(sql, [
-    objetivo,
-    resultado_chave,
-    area_responsavel,
-    periodo,
-    tipo,
-    status,
-    descricao,
-    progresso,
-    impacto_financeiro,
-    trimestre,
-    peso_kpi,
-    id
-  ], callback);
+// --- Dashboard ---
+Okr.getResumo = async () => {
+    const query = `SELECT COUNT(*) AS total, SUM(CASE WHEN status = 'Concluído' THEN 1 ELSE 0 END) AS concluidos, AVG(progresso) AS media_progresso, SUM(impacto_financeiro) AS impacto_total FROM okrs`;
+    const [rows] = await promisePool.query(query);
+    return rows[0];
 };
+
+Okr.getGraficoTrimestre = async () => {
+    const query = `SELECT trimestre, tipo, AVG(progresso) AS media_progresso FROM okrs WHERE periodo = '2025' GROUP BY trimestre, tipo`;
+    const [rows] = await promisePool.query(query);
+    return rows;
+};
+
+Okr.getRadarDesempenho = async () => {
+    const query = `SELECT area_responsavel AS subject, tipo, SUM(progresso) AS total_progresso FROM okrs WHERE periodo = '2025' GROUP BY area_responsavel, tipo`;
+    const [rows] = await promisePool.query(query);
+    return rows;
+};
+
+// Adicione aqui outras funções como getOKRById, se tiver.
+
+module.exports = Okr;

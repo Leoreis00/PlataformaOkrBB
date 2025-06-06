@@ -1,34 +1,40 @@
 // backend/config/db.js
 
-// 1. Importa a biblioteca 'pg' para PostgreSQL.
-// Certifique-se de ter rodado: npm install pg
-const { Pool } = require('pg');
+// 1. Importa a biblioteca 'mysql2', que é a correta para MySQL.
+const mysql = require('mysql2');
 require('dotenv').config();
 
-console.log('Inicializando configuração do banco de dados (Supabase)...');
+console.log('Inicializando configuração do banco de dados MySQL...');
 
-// 2. Cria o pool de conexões usando a Connection String.
-// A biblioteca 'pg' usa a connection string diretamente,
-// que você deve configurar na variável de ambiente DB_CONNECTION_STRING no Render.
-const pool = new Pool({
-    connectionString: process.env.DB_CONNECTION_STRING,
-    // Supabase exige uma conexão segura (SSL).
-    // Esta configuração é a mais comum e robusta para evitar problemas.
-    ssl: {
-        rejectUnauthorized: false
-    }
-});
+// 2. Configura a conexão usando as variáveis de ambiente separadas.
+const dbConfig = {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT,
+    // Configurações para tornar o pool de conexões robusto
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
+    connectTimeout: 20000 // 20 segundos
+};
 
-// 3. Testa a conexão assim que a aplicação inicia.
-// Se a conexão falhar, a aplicação será encerrada para evitar erros.
-pool.query('SELECT NOW()', (err, res) => {
+// 3. Cria o pool de conexões com a configuração correta
+const pool = mysql.createPool(dbConfig);
+
+// 4. Testa a conexão na inicialização para garantir que tudo está certo.
+pool.getConnection((err, connection) => {
     if (err) {
-        console.error('ERRO FATAL ao conectar ao banco de dados Supabase:', err);
-        process.exit(1);
+        console.error('ERRO FATAL ao conectar ao banco de dados MySQL:', err);
+        // Encerra a aplicação se a conexão inicial falhar
+        process.exit(1); 
     } else {
-        console.log('Conectado ao banco de dados Supabase com sucesso.');
+        console.log('Conectado ao banco de dados MySQL com sucesso.');
+        // Libera a conexão de volta para o pool
+        connection.release();
     }
 });
 
-// 4. Exporta o pool para ser usado nos seus models e controllers.
+// 5. Exporta o pool para ser usado pelos seus outros arquivos (models, etc.)
 module.exports = pool;
