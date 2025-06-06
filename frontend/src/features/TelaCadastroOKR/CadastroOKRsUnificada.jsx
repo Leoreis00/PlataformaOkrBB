@@ -197,8 +197,8 @@ const CadastroOKRsUnificada = () => {
                                     <label htmlFor="tipo">Tipo de OKR</label>
                                     <select id="tipo" name="tipo" onChange={handleChange} required value={form.tipo}>
                                         <option value="">Selecione o Tipo</option>
-                                        <option value="Resultado">Resultado</option>
-                                        <option value="Esforço">Esforço</option>
+                                        <option value="Resultado">Resultado (Outcome)</option>
+                                        <option value="Esforço">Esforço (Output)</option>
                                     </select>
                                 </div>
                             </div>
