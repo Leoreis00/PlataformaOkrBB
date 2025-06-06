@@ -1,6 +1,5 @@
 // backend/config/db.js
 
-// Usando o wrapper de Promises do mysql2
 const mysql = require('mysql2/promise');
 require('dotenv').config();
 
@@ -13,11 +12,8 @@ const dbConfig = {
     database: process.env.DB_NAME,
     port: process.env.DB_PORT,
     
-    // Configuração de segurança essencial para o Render
-    ssl: {
-        // Render usa certificados válidos, então podemos e devemos verificar.
-        rejectUnauthorized: true
-    },
+    // NÃO vamos forçar SSL, pois o servidor não suporta.
+    // A remoção do bloco 'ssl' é a correção principal aqui.
     
     // Configurações para tornar o pool de conexões robusto
     waitForConnections: true,
@@ -26,26 +22,30 @@ const dbConfig = {
     connectTimeout: 20000 // 20 segundos
 };
 
-// Crie o pool de conexões. createPool já retorna um objeto com métodos baseados em Promises.
+// Crie o pool de conexões com a configuração correta
 const pool = mysql.createPool(dbConfig);
 
 // Função assíncrona para testar a conexão na inicialização
 async function testDbConnection() {
+    let connection;
     try {
-        // Pega uma conexão do pool e a libera automaticamente
-        const connection = await pool.getConnection();
+        // Tenta obter uma conexão do pool
+        connection = await pool.getConnection();
         console.log('Conectado ao banco de dados MySQL com sucesso (via Pool).');
-        connection.release(); // Sempre libere a conexão de volta para o pool
     } catch (err) {
         console.error('ERRO FATAL ao conectar ao banco de dados MySQL:', err.message);
-        // Em caso de erro na inicialização, encerra a aplicação para evitar comportamento inesperado.
-        // O Render/serviço de hospedagem irá tentar reiniciar o processo.
+        // Encerra a aplicação se não conseguir conectar na inicialização
         process.exit(1);
+    } finally {
+        // Garante que a conexão seja liberada de volta para o pool
+        if (connection) {
+            connection.release();
+        }
     }
 }
 
 // Executa o teste de conexão
 testDbConnection();
 
-// Exporte o pool de conexões para ser usado em outras partes da aplicação
+// Exporte o pool de conexões para ser usado no resto da aplicação
 module.exports = pool;
