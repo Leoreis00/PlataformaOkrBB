@@ -1,48 +1,34 @@
 // backend/config/db.js
-const mysql = require('mysql2');
+
+// 1. Importa a biblioteca 'pg' para PostgreSQL.
+// Certifique-se de ter rodado: npm install pg
+const { Pool } = require('pg');
 require('dotenv').config();
 
-const dbConfig = {
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT,
-  // Configurações para o pool de conexões:
-  waitForConnections: true, // Se não houver conexões disponíveis, espera
-  connectionLimit: 10,     // Número máximo de conexões no pool
-  queueLimit: 0            // Número máximo de requisições pendentes na fila
-};
+console.log('Inicializando configuração do banco de dados (Supabase)...');
 
-// Crie o pool de conexões
-const pool = mysql.createPool(dbConfig);
-
-// Opcional: Adicionar listeners para monitorar o pool e a conexão
-pool.on('connection', (connection) => {
-    console.log('Nova conexão MySQL obtida do pool.');
-});
-
-pool.on('error', (err) => {
-    console.error('Erro no pool de conexões MySQL:', err.code, err.message);
-    // Este evento pode indicar um erro fatal no pool; o Render pode reiniciar o serviço.
-});
-
-// Testar a conexão inicial do pool
-// Isso garante que as credenciais estão corretas e o DB está acessível na inicialização
-pool.getConnection((err, connection) => {
-    if (err) {
-        console.error('Erro fatal ao conectar ao banco de dados MySQL no pool:', err);
-        if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNRESET') {
-            console.warn('Conexão MySQL perdida durante o teste inicial do pool. O pool tentará restabelecer automaticamente.');
-        } else {
-            // Outro tipo de erro, como credenciais incorretas ou host inacessível.
-            // Considerar encerrar o processo para evitar mais erros.
-            process.exit(1);
-        }
-    } else {
-        console.log('Conectado ao banco de dados MySQL (via Pool).');
-        connection.release(); // Libera a conexão de volta para o pool imediatamente
+// 2. Cria o pool de conexões usando a Connection String.
+// A biblioteca 'pg' usa a connection string diretamente,
+// que você deve configurar na variável de ambiente DB_CONNECTION_STRING no Render.
+const pool = new Pool({
+    connectionString: process.env.DB_CONNECTION_STRING,
+    // Supabase exige uma conexão segura (SSL).
+    // Esta configuração é a mais comum e robusta para evitar problemas.
+    ssl: {
+        rejectUnauthorized: false
     }
 });
 
-module.exports = pool; // Exporte o pool de conexões
+// 3. Testa a conexão assim que a aplicação inicia.
+// Se a conexão falhar, a aplicação será encerrada para evitar erros.
+pool.query('SELECT NOW()', (err, res) => {
+    if (err) {
+        console.error('ERRO FATAL ao conectar ao banco de dados Supabase:', err);
+        process.exit(1);
+    } else {
+        console.log('Conectado ao banco de dados Supabase com sucesso.');
+    }
+});
+
+// 4. Exporta o pool para ser usado nos seus models e controllers.
+module.exports = pool;
